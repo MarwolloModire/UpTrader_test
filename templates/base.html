@@ -1,0 +1,151 @@
+{% load menu_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Древовидное меню</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				margin: 0;
+				padding: 0;
+				background-color: #1e1e1e;
+				color: #f5f5f5;
+				overflow-x: hidden;
+			}
+
+			header {
+				background-color: #333;
+				padding: 15px 20px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				border-bottom: 2px solid #555;
+			}
+
+			.menu {
+				margin: 10 0 10 0;
+				padding: 0;
+				list-style: none;
+				background-color: #444;
+				border-radius: 5px;
+				overflow: hidden;
+				transition: max-height 1s ease;
+				padding-left: 30px;
+				box-sizing: border-box;
+				position: relative;
+			}
+
+			.menu ul {
+				padding: 0;
+				margin: 0;
+				position: relative;
+				left: 0;
+			}
+
+			.menu li {
+				padding: 10px;
+				border-bottom: 1px solid #555;
+				transition: transform 1s ease;
+				position: relative;
+			}
+
+			.menu li:last-child {
+				border-bottom: none;
+			}
+
+			.menu a {
+				color: #f5f5f5;
+				text-decoration: none;
+				display: block;
+				transition: background-color 1s ease, padding 1s ease;
+			}
+
+			.menu a:hover {
+				background-color: #555;
+				padding: 10px;
+			}
+
+			.menu li:hover {
+				transform: scale(1.05);
+			}
+
+			.menu li ul {
+				padding-left: 20px;
+				margin: 0;
+				position: relative;
+				left: 20px;
+				overflow: hidden;
+			}
+
+			.menu-buttons {
+				display: flex;
+				gap: 10px;
+			}
+
+			.menu-buttons a {
+				color: #f5f5f5;
+				text-decoration: none;
+				background-color: #007bff;
+				padding: 10px 15px;
+				border-radius: 5px;
+				transition: background-color 1s ease, transform 1s ease;
+			}
+
+			.menu-buttons a:hover {
+				background-color: #0056b3;
+				transform: scale(1.05);
+			}
+
+			.menu-title {
+				font-size: 24px;
+				font-weight: bold;
+				margin: 0;
+				color: #f5f5f5; /* Цвет заголовка */
+				text-shadow: 1px 1px 2px #000; /* Легкая тень для улучшения читаемости */
+			}
+
+			.content {
+				padding: 20px;
+				background-color: #2c2c2c; /* Фон контента */
+				border-radius: 5px;
+				margin: 20px;
+			}
+
+			.content h1 {
+				font-size: 28px;
+				margin-top: 0;
+				color: #f5f5f5;
+			}
+
+			.content p {
+				font-size: 18px;
+				color: #d1d1d1;
+			}
+
+			.menu-collapsed {
+				max-height: 0;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<div class="menu-buttons">
+				<a href="/">Свернуть все списки</a>
+				<a href="/admin/" class="admin-btn">Войти в админку</a>
+			</div>
+		</header>
+		<main>
+			<div class="menu">
+				{% draw_all_menus as all_menus %} {{ all_menus|safe }}
+			</div>
+			<div class="content">
+				<h1>Древовидное меню</h1>
+				{% block content %}
+				<div class="content">{{ content }}</div>
+				{% endblock %}
+			</div>
+		</main>
+	</body>
+</html>
